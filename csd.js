@@ -103,13 +103,30 @@ export const getPublicIp = async () => {
 // -------------------------------------------------
 
 
-const usage_text = `
-usage: csd [command]
+const usage_text = `# cloudflare-sync-dns
+
+This command can be called regularly (e.g. via cron) to keep your DNS records up to date when your ISP assigns you a new IP address.
+
+Specifically, the script will:
+
+1) maintain a local copy of the IP that was last set in your cloudflare DNS records
+2) check your external IP address, comparing it to the cloudflare DNS record
+3) if the external IP has changed:
+* load cloudflare settings and keys from a local JSON file
+* call the cloudflare API to get all DNS record ids
+* call the cloudflare API for each DNS record and update it to the new external IP
+* optionally run firewall and LAN scripts, and ensure all hosts are resolving 
+* only after everything is verified, update the local copy of the IP
+
+[Documentation](https://bitpost.com/wiki/Cloudflare-sync-dns) | [News](https://bitpost.com/news)
+
+Note there is also a command console for a few admin commands.
+
+Usage: csd [command]
 
   cmd+options           short description
   ---------------------------------------
-  update                [up]  pull and install the latest updates to this command console
-  sync                  [sy]  sync console, ie: pull, commit, tag, push, publish to es npm
+  sync                  [sy]  (admin-only) sync this module, ie: pull, commit, tag, push, publish to npm
 `;
 
 
