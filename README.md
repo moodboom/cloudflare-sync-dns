@@ -26,8 +26,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  cb69d64 28 minutes.. Update README                                         HEAD -> mai.. Michael Behrns-Miller [cob..
+  1b7d707 17 minutes.. Update eslint dev dep                                 HEAD -> mai.. Michael Behrns-Miller [cob..
+  cb69d64 45 minutes.. Update README                                            tag: 5.0.5 Michael Behrns-Miller [cob..
   3b5bf7e  2 hours ago Import fixes                                             tag: 5.0.4 Michael Behrns-Miller [cob..
   87074b3 13 hours ago First post                                            tag: 0.0.0,.. Michael Behrns-Miller [cob..
 
-Version 5.0.6
+Version 5.0.7
