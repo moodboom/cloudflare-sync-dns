@@ -1,0 +1,34 @@
+{
+  "name": "@moodboom/cloudflare-sync-dns",
+  "version": "5.0.0",
+  "description": "A script to track external IP, and update cloudflare DNS when a change is observed.  A command is provided that can be called often from cron to monitor for and act on IP changes.",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/moodboom/cloudflare-sync-dns.git"
+  },
+  "keywords": [
+    "git"
+  ],
+  "homepage": "https://bitpost.com/wiki/Cloudflare-sync-dns",
+  "author": "Michael Miller <foss@thedigitalmachine.com>",
+  "license": "MIT",
+  "preferGlobal": true,
+  "dependencies": {
+    "luxon": "^3.5.0",
+    "rad-scripts": "^5.0.13",
+    "@moodboom/git-semver": "^5.0.2"
+  },
+  "bin": {
+    "cloudflare-sync-dns": "cloudflare-sync-dns-cmd.js",
+    "csd": "csd-cmd.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0"
+  }
+}

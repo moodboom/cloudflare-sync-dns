@@ -1,0 +1,14 @@
+{
+  "accountAPIKey": "GET-FROM-CLOUDFLARE-DASHBOARD",
+  "accountEmail": "YOURCLOUDFLAREUSER@EMAIL",
+  "zoneIds": [
+    {
+      "domain": "mydomain.com",
+      "zoneId": "GET-FROM-CLOUDFLARE-DASHBOARD"
+    },
+    {
+      "domain": "myseconddomain.com",
+      "zoneId": "GET-FROM-CLOUDFLARE-DASHBOARD"
+    }
+  ]
+}
