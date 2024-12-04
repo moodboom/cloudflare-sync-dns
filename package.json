@@ -1,6 +1,6 @@
 {
   "name": "@moodboom/cloudflare-sync-dns",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "description": "A script to track external IP, and update cloudflare DNS when a change is observed.  A command is provided that can be called often from cron to monitor for and act on IP changes.",
   "type": "module",
   "main": "index.js",
@@ -28,7 +28,6 @@
     "csd": "csd-cmd.js"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-standard": "^17.1.0"
+    "eslint": "^9.0.0"
   }
 }

@@ -26,7 +26,8 @@ Usage: csd [command]
 
 
 Most recent commits...
-  3b5bf7e  2 hours ago Import fixes                                          HEAD -> mai.. Michael Behrns-Miller [cob..
-  87074b3 12 hours ago First post                                            tag: 0.0.0,.. Michael Behrns-Miller [cob..
+  cb69d64 28 minutes.. Update README                                         HEAD -> mai.. Michael Behrns-Miller [cob..
+  3b5bf7e  2 hours ago Import fixes                                             tag: 5.0.4 Michael Behrns-Miller [cob..
+  87074b3 13 hours ago First post                                            tag: 0.0.0,.. Michael Behrns-Miller [cob..
 
-Version 5.0.5
+Version 5.0.6
