@@ -1,7 +1,22 @@
 #!/usr/bin/env node
 
-import { run_command_quietly, run_command_sync, run_command_sync_to_console } from 'rad-scripts';
-import { git_changes, git_sync, npm_update_version, parse_tag_parameters } from '@moodboom/git-semver';
+import {
+  writeFileSync,
+} from 'fs';
+
+import {
+  run_command_quietly,
+  run_command_sync,
+  run_command_sync_to_console,
+  folder_exists,
+} from 'rad-scripts';
+
+import {
+  git_changes,
+  git_sync,
+  npm_update_version,
+  parse_tag_parameters,
+} from '@moodboom/git-semver';
 
 
 // -------------------------------------------------
@@ -102,11 +117,11 @@ export const csd = ( target, args ) => {
   if ( target == 'update' || target == 'up' ) {
 
     const run_cmd = `git pull && npm install && npm link`;
-    rs.run_command_sync_to_console( run_cmd );
+    run_command_sync_to_console( run_cmd );
 
   } else if ( target == 'sync' || target == 'sy' ) {
 
-    if ( !rs.folder_exists( '../cloudflare-sync-dns' )) {
+    if ( !folder_exists( '../cloudflare-sync-dns' )) {
       console.log( `You should sync from the repo root folder.` );
       exit( 1 );
     }

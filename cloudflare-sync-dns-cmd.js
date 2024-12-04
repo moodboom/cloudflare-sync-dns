@@ -1,9 +1,24 @@
 #!/usr/bin/env node
 
 import { DateTime } from 'luxon';
-import fs from 'fs';
-import * as rs from 'rad-scripts';
-import { getPublicIp, callApi } from './utils.js';
+
+import {
+  readFileSync,
+  writeFileSync,
+} from 'fs';
+
+import {
+  hostname,
+  file_exists,
+  run_command_sync_to_console,
+  ping_google,
+  ping,
+} from 'rad-scripts';
+
+import {
+  getPublicIp,
+  callApi,
+} from './csd.js';
 
 const baseUrl = 'https://api.cloudflare.com/client/v4/zones';
 
@@ -11,8 +26,8 @@ const timestampShort = timestamp => timestamp.toLocaleString( DateTime.DATETIME_
 const timestampShortNow = () => timestampShort( DateTime.now());
 
 // If not on bitpost, log and exit.
-if ( rs.hostname() !== 'bitpost' ) {
-  console.log( `This script is only intended to run on bitpost, not ${rs.hostname()}.` );
+if ( hostname() !== 'bitpost' ) {
+  console.log( `This script is only intended to run on bitpost, not ${hostname()}.` );
   process.exit( 1 );
 }
 
@@ -29,9 +44,9 @@ const cloudflareSettingsFile = '/home/m/config/home/m/cloudflareSettings.json';
 
 const createDnsHistoryAsNeeded = async () => {
   return new Promise(( resolve, reject ) => {
-    if ( !rs.file_exists( historyFile )) {
+    if ( !file_exists( historyFile )) {
       const initialHistory = [{ ip: '0.0.0.0', date: timestampShortNow() }];
-      fs.writeFileSync( historyFile, JSON.stringify( initialHistory ), 'utf-8' );
+      writeFileSync( historyFile, JSON.stringify( initialHistory ), 'utf-8' );
       resolve( true );
     }
     resolve( false );
@@ -41,7 +56,7 @@ const createDnsHistoryAsNeeded = async () => {
 const loadDnsHistory = async () => {
   return new Promise(( resolve, reject ) => {
     try {
-      const historyFileString = fs.readFileSync( historyFile, 'utf8' );
+      const historyFileString = readFileSync( historyFile, 'utf8' );
       const ha = JSON.parse( historyFileString );
       const lastDnsIp = ha[ ha.length - 1 ].ip;
       resolve( lastDnsIp );
@@ -56,7 +71,7 @@ const loadDnsHistory = async () => {
 const loadCloudflareSettings = async () => {
   return new Promise(( resolve, reject ) => {
     try {
-      const cloudflareSettingsFileString = fs.readFileSync( cloudflareSettingsFile, 'utf8' );
+      const cloudflareSettingsFileString = readFileSync( cloudflareSettingsFile, 'utf8' );
       const s = JSON.parse( cloudflareSettingsFileString );
       if ( !( s?.accountAPIKey  && s?.accountEmail && s?.zoneIds?.length )) {
         reject( 'Your cloudflareSettings.JSON file does not contain all required settings.' );
@@ -160,12 +175,12 @@ const resetLan = async () => {
   return new Promise(( resolve, reject ) => {
 
     // 1 reset firewall with new IP
-    rs.run_command_sync_to_console(
+    run_command_sync_to_console(
       'sudo bash /home/m/scripts/ubuntu/bitpost/root/stronger_firewall_and_save',
     );
 
     // 2 verify we can ping both externally and internally
-    const bLanOk = rs.ping_google() && rs.ping( 'cast' ) && rs.ping( 'bandit' );
+    const bLanOk = ping_google() && ping( 'cast' ) && ping( 'bandit' );
 
     resolve( bLanOk );
   });
@@ -174,13 +189,13 @@ const resetLan = async () => {
 const addCurrentIpToDnsHistory = async currentExternalIp => {
   return new Promise(( resolve, reject ) => {
     try {
-      const historyFileString = fs.readFileSync( historyFile, 'utf8' );
+      const historyFileString = readFileSync( historyFile, 'utf8' );
       const h = JSON.parse( historyFileString );
       h.push({
         ip: currentExternalIp,
         date: timestampShortNow(),
       });
-      fs.writeFileSync( historyFile, JSON.stringify( h, null, 2 ), 'utf-8' );
+      writeFileSync( historyFile, JSON.stringify( h, null, 2 ), 'utf-8' );
       resolve( true );
     }
     catch( e ) {
