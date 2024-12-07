@@ -32,9 +32,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  7e86076 15 minutes.. Adding missing bits                                   HEAD -> mai.. Michael Behrns-Miller [cob..
+  aa57fff 43 minutes.. Final generification                                  HEAD -> mai.. Michael Behrns-Miller [cob..
+  7e86076 58 minutes.. Adding missing bits                                      tag: 5.0.8 Michael Behrns-Miller [cob..
   c24fa03   3 days ago Push to github Make github gitlab repos public           tag: 5.0.7 Michael Behrns-Miller [cob..
   1b7d707   3 days ago Update eslint dev dep                                    tag: 5.0.6 Michael Behrns-Miller [cob..
-  cb69d64   3 days ago Update README                                            tag: 5.0.5 Michael Behrns-Miller [cob..
 
-Version 5.0.9
+Version 5.0.10

@@ -84,7 +84,7 @@ const loadCloudflareSettings = async () => {
       resolve( s );
     }
     catch( e ) {
-      console.log( 'loadCloudflareSettings error', e );
+      console.log( `\nCould not load ${cloudflareSettingsFile}, make sure you have created and configured it.\n` );
       reject( e );
     }
   });
