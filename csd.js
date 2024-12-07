@@ -118,6 +118,12 @@ Specifically, the script will:
 * optionally run firewall and LAN scripts, and ensure all hosts are resolving 
 * only after everything is verified, update the local copy of the IP
 
+## Installation
+* Install a recent version of node.js
+* Clone the repository
+* Copy cloudflareSettings-template.json to cloudflareSettings.json and adjust accordingly
+* Add a cron job to run the script regularly.  Every minute should work well, as most of the time it just does a local check.
+
 [Documentation](https://bitpost.com/wiki/Cloudflare-sync-dns) | [News](https://bitpost.com/news)
 
 Note there is also a command console for a few admin commands.

@@ -13,6 +13,12 @@ Specifically, the script will:
 * optionally run firewall and LAN scripts, and ensure all hosts are resolving 
 * only after everything is verified, update the local copy of the IP
 
+## Installation
+* Install a recent version of node.js
+* Clone the repository
+* Copy cloudflareSettings-template.json to cloudflareSettings.json and adjust accordingly
+* Add a cron job to run the script regularly.  Every minute should work well, as most of the time it just does a local check.
+
 [Documentation](https://bitpost.com/wiki/Cloudflare-sync-dns) | [News](https://bitpost.com/news)
 
 Note there is also a command console for a few admin commands.
@@ -26,9 +32,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  1b7d707 17 minutes.. Update eslint dev dep                                 HEAD -> mai.. Michael Behrns-Miller [cob..
-  cb69d64 45 minutes.. Update README                                            tag: 5.0.5 Michael Behrns-Miller [cob..
-  3b5bf7e  2 hours ago Import fixes                                             tag: 5.0.4 Michael Behrns-Miller [cob..
-  87074b3 13 hours ago First post                                            tag: 0.0.0,.. Michael Behrns-Miller [cob..
+  c24fa03   3 days ago Push to github Make github gitlab repos public        HEAD -> mai.. Michael Behrns-Miller [cob..
+  1b7d707   3 days ago Update eslint dev dep                                    tag: 5.0.6 Michael Behrns-Miller [cob..
+  cb69d64   3 days ago Update README                                            tag: 5.0.5 Michael Behrns-Miller [cob..
+  3b5bf7e   3 days ago Import fixes                                             tag: 5.0.4 Michael Behrns-Miller [cob..
 
-Version 5.0.7
+Version 5.0.8

@@ -10,5 +10,7 @@
       "domain": "myseconddomain.com",
       "zoneId": "GET-FROM-CLOUDFLARE-DASHBOARD"
     }
-  ]
+  ],
+  "pingChecks": [ "lanHost1", "lanHost2" ],
+  "restartFirewallScript": "sudo bash /path/to/restartFirewall.sh"
 }

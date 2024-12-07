@@ -73,7 +73,11 @@ const loadCloudflareSettings = async () => {
     try {
       const cloudflareSettingsFileString = readFileSync( cloudflareSettingsFile, 'utf8' );
       const s = JSON.parse( cloudflareSettingsFileString );
-      if ( !( s?.accountAPIKey  && s?.accountEmail && s?.zoneIds?.length )) {
+      if ( 
+           !( s?.accountAPIKey )
+        || !( s?.accountEmail )
+        || !( s?.zoneIds?.length )
+      ) {
         reject( 'Your cloudflareSettings.JSON file does not contain all required settings.' );
       }
       resolve( s );
@@ -87,7 +91,7 @@ const loadCloudflareSettings = async () => {
 
 // GET DNS RECORDS
 // We GET DNS records first, so we can later use the dns_record_ids to update IP.
-const getDnsRecords = async ({ domain, zoneId }) => {
+const getDnsRecords = async ({ headers, domain, zoneId }) => {
   return new Promise(( resolve, reject ) => {
 
     // We just want A records, which contain the IP address of the domain.
@@ -98,17 +102,6 @@ const getDnsRecords = async ({ domain, zoneId }) => {
 
     // TOTHINK: Account (all domains) vs zone (one domain!)
     // const accountGetUrl = `${baseUrl}/dns_records?account.id=${accountId}&${aFilter}`;
-
-    const headers = {
-      'X-Auth-Key': accountAPIKey,
-      'X-Auth-Email': accountEmail,
-
-      // 2024/11/13 I COULD NOT GET THIS GOING for v4 at this time.
-      // Even tho cloudflare recommends it, none of their docs are updated to use it.
-      // Also, it does not work and the "old" key+email way does.  lol
-      // 'Authorization': `Bearer ${cloudflareAPIToken}`,
-    };
-    // -----------------
 
     // Get existing Cloudflare DNS A records
     const gotDnsRecords = data => {
@@ -132,21 +125,10 @@ const getDnsRecords = async ({ domain, zoneId }) => {
   });
 }
 
-const updateDns = async ({ currentExternalIp, dnsRecord }) => {
+const updateDns = async ({ headers, currentExternalIp, dnsRecord }) => {
   return new Promise(( resolve, reject ) => {
 
     const baseUrl = 'https://api.cloudflare.com/client/v4/zones';
-
-    const headers = {
-      'X-Auth-Key': accountAPIKey,
-      'X-Auth-Email': accountEmail,
-
-      // 2024/11/13 I COULD NOT GET THIS GOING for v4 at this time.
-      // Even tho cloudflare recommends it, none of their docs are updated to use it.
-      // Also, it does not work and the "old" key+email way does.  lol
-      // 'Authorization': `Bearer ${cloudflareAPIToken}`,
-    };
-    // -----------------
 
     const patchedDnsRecord = data => {
       resolve( true );
@@ -175,12 +157,10 @@ const resetLan = async () => {
   return new Promise(( resolve, reject ) => {
 
     // 1 reset firewall with new IP
-    run_command_sync_to_console(
-      'sudo bash /home/m/scripts/ubuntu/bitpost/root/stronger_firewall_and_save',
-    );
+    run_command_sync_to_console( restartFirewallScript );
 
     // 2 verify we can ping both externally and internally
-    const bLanOk = ping_google() && ping( 'cast' ) && ping( 'bandit' );
+    const bLanOk = ping_google() && pingChecks.every( p => ping( p ));
 
     resolve( bLanOk );
   });
@@ -221,11 +201,32 @@ const syncDnsChainParent = async () => {
 
     if ( currentExternalIp !== lastDnsIp ) {
 
+      const settings = await loadCloudflareSettings();
+      const {
+        accountAPIKey,
+        accountEmail,
+        zoneIds,
+        pingChecks,
+        restartFirewallScript,
+      } = settings;
+      chainLog.push( `${timestampShortNow()} Settings loaded` );
+  
+      const headers = {
+        'X-Auth-Key': accountAPIKey,
+        'X-Auth-Email': accountEmail,
+  
+        // 2024/11/13 I COULD NOT GET THIS GOING for v4 at this time.
+        // Even tho cloudflare recommends it, none of their docs are updated to use it.
+        // Also, it does not work and the "old" key+email way does.  lol
+        // 'Authorization': `Bearer ${cloudflareAPIToken}`,
+      };  
+
       // NOTE LOOPS with await cannot use forEach.
       // Simply use a normal for.
       let dnsRecords = [];
       for ( const z of zoneIds ) {
-        const dnsZoneRecords = await getDnsRecords( z );
+        const dnsParams = { headers, ...z };
+        const dnsZoneRecords = await getDnsRecords( dnsParams );
         dnsRecords = dnsRecords.concat( dnsZoneRecords );
       };
       chainLog.push( `${timestampShortNow()} Got ${dnsRecords.length} DNS records` );
@@ -233,7 +234,7 @@ const syncDnsChainParent = async () => {
       let bUpdateOk = true;
       for ( const dnsRecord of dnsRecords ) {
 
-        const bOk = await updateDns({ currentExternalIp, dnsRecord });
+        const bOk = await updateDns({ headers, currentExternalIp, dnsRecord });
         chainLog.push( `${timestampShortNow()} Updated ${ dnsRecord.name } to IP ${currentExternalIp}` );
 
         bUpdateOk = bUpdateOk && bOk;
