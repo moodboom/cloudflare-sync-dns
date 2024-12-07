@@ -25,12 +25,6 @@ const baseUrl = 'https://api.cloudflare.com/client/v4/zones';
 const timestampShort = timestamp => timestamp.toLocaleString( DateTime.DATETIME_SHORT );
 const timestampShortNow = () => timestampShort( DateTime.now());
 
-// If not on bitpost, log and exit.
-if ( hostname() !== 'bitpost' ) {
-  console.log( `This script is only intended to run on bitpost, not ${hostname()}.` );
-  process.exit( 1 );
-}
-
 // WE NEED A MASTER SYNC CHAIN FUNCTION.
 // See Javascript scrap for the initial sync chain skeleton, fun!
 // We will use a chain of promise functions that do the work and "resolve" when done.
@@ -77,9 +71,16 @@ const loadCloudflareSettings = async () => {
            !( s?.accountAPIKey )
         || !( s?.accountEmail )
         || !( s?.zoneIds?.length )
+        || !( s?.routerHostname )
       ) {
         reject( 'Your cloudflareSettings.JSON file does not contain all required settings.' );
       }
+
+      // If not on router, log and exit.
+      if ( hostname() !== routerHostname ) {
+        reject( `This script is only intended to run on ${routerHostname}, not ${hostname()}.` );
+      }
+
       resolve( s );
     }
     catch( e ) {
@@ -265,39 +266,3 @@ syncDnsChainParent().then(() => {
   // DEBUG
   // console.log( `${timestampShortNow()} Chain done.` );
 });
-
-
-// ---------
-// APPENDIX
-// ---------
-
-// ---------------------
-// TYPICAL DNS API RESPONSE:
-// ---------------------
-// {
-//   result: [
-//     {
-//       id: 'c5b5fcf322a08e38dcabc49f88d4ac3b',
-//       zone_id: 'e33cb4e6a4dc8c73ab0111efe6911d3a',
-//       zone_name: 'bitpost.com',
-//       name: 'bitpost.com',
-//       type: 'A',
-//       content: '136.47.189.8',
-//       proxiable: true,
-//       proxied: false,
-//       ttl: 1,
-//       settings: {},
-//       "meta":{"auto_added":false,"managed_by_apps":false,"managed_by_argo_tunnel":false},
-//       comment: null,
-//       tags: [],
-//       created_on: '2023-10-23T20:55:39.313387Z',
-//       modified_on: '2024-11-08T05:13:44.173422Z'
-//     }
-//   ],
-//   success: true,
-//   errors: [],
-//   messages: [],
-//   result_info: { page: 1, per_page: 100, count: 1, total_count: 1, total_pages: 1 }
-// }
-// ---------------------
-

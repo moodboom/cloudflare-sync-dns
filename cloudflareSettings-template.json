@@ -11,6 +11,7 @@
       "zoneId": "GET-FROM-CLOUDFLARE-DASHBOARD"
     }
   ],
+  "routerHostname": "myRouter",
   "pingChecks": [ "lanHost1", "lanHost2" ],
   "restartFirewallScript": "sudo bash /path/to/restartFirewall.sh"
 }
