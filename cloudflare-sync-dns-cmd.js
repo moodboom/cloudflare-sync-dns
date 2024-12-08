@@ -33,8 +33,8 @@ const timestampShortNow = () => timestampShort( DateTime.now());
 // NOTE that any errors should be generally reported, and will short-circuit the chain completion.
 // If no update is needed, nothing is returned so that cron does not send an email.
 
-const historyFile = '/home/m/config/home/m/dnsHistory.json';
-const cloudflareSettingsFile = '/home/m/config/home/m/cloudflareSettings.json';
+const historyFile = './dnsHistory.json';
+const cloudflareSettingsFile = './cloudflareSettings.json';
 
 const createDnsHistoryAsNeeded = async () => {
   return new Promise(( resolve, reject ) => {

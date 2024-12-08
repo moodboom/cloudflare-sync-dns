@@ -15,8 +15,9 @@ Specifically, the script will:
 
 ## Installation
 * Install a recent version of node.js
-* Clone the repository
-* Copy cloudflareSettings-template.json to cloudflareSettings.json and adjust accordingly
+* a) You can clone the repository then do an [npm install -g]
+* b) Or you can just do a global install [npm install -g cloudflare-sync-dns].
+* In the module root, copy cloudflareSettings-template.json to cloudflareSettings.json and adjust accordingly
 * Add a cron job to run the script regularly.  Every minute should work well, as most of the time it just does a local check.
 
 [Documentation](https://bitpost.com/wiki/Cloudflare-sync-dns) | [News](https://bitpost.com/news)
@@ -32,9 +33,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  aa57fff 43 minutes.. Final generification                                  HEAD -> mai.. Michael Behrns-Miller [cob..
-  7e86076 58 minutes.. Adding missing bits                                      tag: 5.0.8 Michael Behrns-Miller [cob..
+  ca6e35d  9 hours ago Better error on missing settings file                 HEAD -> mai.. Michael Behrns-Miller [cob..
+  aa57fff  9 hours ago Final generification                                     tag: 5.0.9 Michael Behrns-Miller [cob..
+  7e86076 10 hours ago Adding missing bits                                      tag: 5.0.8 Michael Behrns-Miller [cob..
   c24fa03   3 days ago Push to github Make github gitlab repos public           tag: 5.0.7 Michael Behrns-Miller [cob..
-  1b7d707   3 days ago Update eslint dev dep                                    tag: 5.0.6 Michael Behrns-Miller [cob..
 
-Version 5.0.10
+Version 5.0.11
