@@ -35,9 +35,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  1559be2 11 hours ago Remove hardcoded settings and history paths           HEAD -> mai.. Michael Behrns-Miller [cob..
-  ca6e35d 20 hours ago Better error on missing settings file                   tag: 5.0.10 Michael Behrns-Miller [cob..
-  aa57fff 20 hours ago Final generification                                     tag: 5.0.9 Michael Behrns-Miller [cob..
-  7e86076 21 hours ago Adding missing bits                                      tag: 5.0.8 Michael Behrns-Miller [cob..
+  20e873d  5 hours ago Settings now loaded from external location            HEAD -> mai.. Michael Behrns-Miller [cob..
+  1559be2 16 hours ago Remove hardcoded settings and history paths             tag: 5.0.11 Michael Behrns-Miller [cob..
+  ca6e35d 24 hours ago Better error on missing settings file                   tag: 5.0.10 Michael Behrns-Miller [cob..
+  aa57fff 25 hours ago Final generification                                     tag: 5.0.9 Michael Behrns-Miller [cob..
 
-Version 5.0.12
+Version 5.0.13

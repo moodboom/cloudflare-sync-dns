@@ -1,6 +1,6 @@
 {
   "name": "@moodboom/cloudflare-sync-dns",
-  "version": "5.0.12",
+  "version": "5.0.13",
   "description": "A script to track external IP, and update cloudflare DNS when a change is observed.  A command is provided that can be called often from cron to monitor for and act on IP changes.",
   "type": "module",
   "main": "index.js",
@@ -21,7 +21,7 @@
   "dependencies": {
     "luxon": "^3.5.0",
     "rad-scripts": "^5.0.13",
-    "@moodboom/git-semver": "^5.0.2"
+    "@moodboom/git-semver": "^5.0.4"
   },
   "bin": {
     "cloudflare-sync-dns": "cloudflare-sync-dns-cmd.js",
