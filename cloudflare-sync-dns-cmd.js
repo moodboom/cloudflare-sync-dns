@@ -20,6 +20,17 @@ import {
   callApi,
 } from './csd.js';
 
+// The path to the settings file must be provided as the first parameter.
+// Get the settings loaded and validated.
+// 0 = node, 1 = script path, so we ignore those.
+// 2 = first parameter, the settings file.
+const cloudflareSettingsFile = process.argv[ 2 ];
+if ( !cloudflareSettingsFile ) {
+  console.log( 'Usage: cloudflare-sync-dns /path/to/settings.JSON' );
+  console.log( 'Details: https://gitlab.com/moodboom/cloudflare-sync-dns' );
+  process.exit( 1 );
+}
+
 const baseUrl = 'https://api.cloudflare.com/client/v4/zones';
 
 const timestampShort = timestamp => timestamp.toLocaleString( DateTime.DATETIME_SHORT );
@@ -33,24 +44,21 @@ const timestampShortNow = () => timestampShort( DateTime.now());
 // NOTE that any errors should be generally reported, and will short-circuit the chain completion.
 // If no update is needed, nothing is returned so that cron does not send an email.
 
-const historyFile = './dnsHistory.json';
-const cloudflareSettingsFile = './cloudflareSettings.json';
-
-const createDnsHistoryAsNeeded = async () => {
+const createDnsHistoryAsNeeded = async dnsHistoryFile => {
   return new Promise(( resolve, reject ) => {
-    if ( !file_exists( historyFile )) {
+    if ( !file_exists( dnsHistoryFile )) {
       const initialHistory = [{ ip: '0.0.0.0', date: timestampShortNow() }];
-      writeFileSync( historyFile, JSON.stringify( initialHistory ), 'utf-8' );
+      writeFileSync( dnsHistoryFile, JSON.stringify( initialHistory ), 'utf-8' );
       resolve( true );
     }
     resolve( false );
   });
 }
 
-const loadDnsHistory = async () => {
+const loadDnsHistory = async dnsHistoryFile => {
   return new Promise(( resolve, reject ) => {
     try {
-      const historyFileString = readFileSync( historyFile, 'utf8' );
+      const historyFileString = readFileSync( dnsHistoryFile, 'utf8' );
       const ha = JSON.parse( historyFileString );
       const lastDnsIp = ha[ ha.length - 1 ].ip;
       resolve( lastDnsIp );
@@ -154,7 +162,7 @@ const updateDns = async ({ headers, currentExternalIp, dnsRecord }) => {
   });
 }
 
-const resetLan = async () => {
+const resetLan = async ( restartFirewallScript, pingChecks ) => {
   return new Promise(( resolve, reject ) => {
 
     // 1 reset firewall with new IP
@@ -191,27 +199,28 @@ const syncDnsChainParent = async () => {
     const chainLog = [];
     chainLog.push( `${timestampShortNow()} Chain running...` );
 
+    const settings = await loadCloudflareSettings();
+    const {
+      accountAPIKey,
+      accountEmail,
+      zoneIds,
+      restartFirewallScript,
+      pingChecks,
+      dnsHistoryFile,
+    } = settings;
+    chainLog.push( `${timestampShortNow()} Settings loaded` );
+
     const currentExternalIp = await getPublicIp();
     chainLog.push( `${timestampShortNow()} External IP: ${ currentExternalIp }` );
 
-    const bCreated = await createDnsHistoryAsNeeded();
+    const bCreated = await createDnsHistoryAsNeeded( dnsHistoryFile );
     chainLog.push( `${timestampShortNow()} Create history as needed: ${bCreated}` );
 
-    const lastDnsIp = await loadDnsHistory();
+    const lastDnsIp = await loadDnsHistory( dnsHistoryFile );
     chainLog.push( `${timestampShortNow()} Load last: ${lastDnsIp}` );
 
     if ( currentExternalIp !== lastDnsIp ) {
 
-      const settings = await loadCloudflareSettings();
-      const {
-        accountAPIKey,
-        accountEmail,
-        zoneIds,
-        pingChecks,
-        restartFirewallScript,
-      } = settings;
-      chainLog.push( `${timestampShortNow()} Settings loaded` );
-  
       const headers = {
         'X-Auth-Key': accountAPIKey,
         'X-Auth-Email': accountEmail,
@@ -242,7 +251,7 @@ const syncDnsChainParent = async () => {
       };
       chainLog.push( `${timestampShortNow()} Update all DNS records: ${bUpdateOk}` );
 
-      const bLanOk = await resetLan();
+      const bLanOk = await resetLan( restartFirewallScript, pingChecks );
       chainLog.push( `${timestampShortNow()} Reset LAN: ${bLanOk}` );
 
       if ( bLanOk ) {

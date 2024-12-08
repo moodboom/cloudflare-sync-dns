@@ -120,9 +120,11 @@ Specifically, the script will:
 
 ## Installation
 * Install a recent version of node.js
+* Install this module globally
 * a) You can clone the repository then do an [npm install -g]
-* b) Or you can just do a global install [npm install -g cloudflare-sync-dns].
-* In the module root, copy cloudflareSettings-template.json to cloudflareSettings.json and adjust accordingly
+* b) Or you can just do a global install [npm install -g cloudflare-sync-dns]
+* Copy cloudflareSettings-template.json (in project folder) outside of the module to where you store configurations, and adjust accordingly
+* Specify the settings file when you run, eg: cloudflare-sync-dns /path/to/my/settings.json
 * Add a cron job to run the script regularly.  Every minute should work well, as most of the time it just does a local check.
 
 [Documentation](https://bitpost.com/wiki/Cloudflare-sync-dns) | [News](https://bitpost.com/news)

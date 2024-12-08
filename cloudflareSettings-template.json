@@ -13,5 +13,6 @@
   ],
   "routerHostname": "myRouter",
   "pingChecks": [ "lanHost1", "lanHost2" ],
-  "restartFirewallScript": "sudo bash /path/to/restartFirewall.sh"
+  "restartFirewallScript": "sudo bash /path/to/restartFirewall.sh",
+  "dnsHistoryFile": "/path/to/dnsHistory.json"
 }
