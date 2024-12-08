@@ -149,7 +149,7 @@ export const csd = ( target, args ) => {
 
     if ( !folder_exists( '../cloudflare-sync-dns' )) {
       console.log( `You should sync from the repo root folder.` );
-      exit( 1 );
+      process.exit( 1 );
     }
 
     const tagParams = parse_tag_parameters( args, 1 ); // noslice = 1
