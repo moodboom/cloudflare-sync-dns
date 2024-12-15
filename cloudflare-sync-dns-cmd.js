@@ -178,16 +178,16 @@ const resetLan = async ( restartFirewallScript, pingChecks ) => {
   });
 }
 
-const addCurrentIpToDnsHistory = async currentExternalIp => {
+const addCurrentIpToDnsHistory = async ( currentExternalIp, dnsHistoryFile ) => {
   return new Promise(( resolve, reject ) => {
     try {
-      const historyFileString = readFileSync( historyFile, 'utf8' );
+      const historyFileString = readFileSync( dnsHistoryFile, 'utf8' );
       const h = JSON.parse( historyFileString );
       h.push({
         ip: currentExternalIp,
         date: timestampShortNow(),
       });
-      writeFileSync( historyFile, JSON.stringify( h, null, 2 ), 'utf-8' );
+      writeFileSync( dnsHistoryFile, JSON.stringify( h, null, 2 ), 'utf-8' );
       resolve( true );
     }
     catch( e ) {
@@ -260,7 +260,7 @@ const syncDnsChainParent = async () => {
       if ( bLanOk ) {
 
         // Update the local DNS history with the new IP.
-        const bUpdated = await addCurrentIpToDnsHistory( currentExternalIp );
+        const bUpdated = await addCurrentIpToDnsHistory( currentExternalIp, dnsHistoryFile );
         chainLog.push( `${timestampShortNow()} Update local DNS history: ${bUpdated}` );
 
       }
