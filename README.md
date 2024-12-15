@@ -35,9 +35,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  8e6bd7e 55 seconds.. Get latest git-semver fixes                           HEAD -> mai.. Michael Behrns-Miller [cob..
-  20e873d  5 hours ago Settings now loaded from external location              tag: 5.0.12 Michael Behrns-Miller [cob..
-  1559be2 16 hours ago Remove hardcoded settings and history paths             tag: 5.0.11 Michael Behrns-Miller [cob..
-  ca6e35d 24 hours ago Better error on missing settings file                   tag: 5.0.10 Michael Behrns-Miller [cob..
+  7ddb9ab   7 days ago Clean exit                                            HEAD -> mai.. Michael Behrns-Miller [cob..
+  8e6bd7e   7 days ago Get latest git-semver fixes                             tag: 5.0.13 Michael Behrns-Miller [cob..
+  20e873d   7 days ago Settings now loaded from external location              tag: 5.0.12 Michael Behrns-Miller [cob..
+  1559be2   8 days ago Remove hardcoded settings and history paths             tag: 5.0.11 Michael Behrns-Miller [cob..
 
-Version 5.0.14
+Version 5.0.15

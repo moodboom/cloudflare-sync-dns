@@ -76,14 +76,17 @@ const loadCloudflareSettings = async () => {
       const cloudflareSettingsFileString = readFileSync( cloudflareSettingsFile, 'utf8' );
       const s = JSON.parse( cloudflareSettingsFileString );
       if ( 
-           !( s?.accountAPIKey )
-        || !( s?.accountEmail )
-        || !( s?.zoneIds?.length )
-        || !( s?.routerHostname )
+          !s
+        || !( s.accountAPIKey )
+        || !( s.accountEmail )
+        || !( s.zoneIds?.length )
+        || !( s.routerHostname )
       ) {
         reject( 'Your cloudflareSettings.JSON file does not contain all required settings.' );
       }
 
+      const { routerHostname } = s;
+      
       // If not on router, log and exit.
       if ( hostname() !== routerHostname ) {
         reject( `This script is only intended to run on ${routerHostname}, not ${hostname()}.` );
