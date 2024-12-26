@@ -35,9 +35,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  c03005a 33 minutes.. Parameter fix                                         HEAD -> mai.. Michael Behrns-Miller [cob..
-  dae0993 51 minutes.. Dereference fix                                         tag: 5.0.15 Michael Behrns-Miller [cob..
-  7ddb9ab   7 days ago Clean exit                                              tag: 5.0.14 Michael Behrns-Miller [cob..
-  8e6bd7e   7 days ago Get latest git-semver fixes                             tag: 5.0.13 Michael Behrns-Miller [cob..
+  354d8bd  11 days ago Bump eslint                                           HEAD -> mai.. Michael Behrns-Miller [cob..
+  c03005a  11 days ago Parameter fix                                           tag: 5.0.16 Michael Behrns-Miller [cob..
+  dae0993  11 days ago Dereference fix                                         tag: 5.0.15 Michael Behrns-Miller [cob..
+  7ddb9ab  3 weeks ago Clean exit                                              tag: 5.0.14 Michael Behrns-Miller [cob..
 
-Version 5.0.17
+Version 5.0.18

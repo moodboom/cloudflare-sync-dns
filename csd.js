@@ -43,9 +43,6 @@ export const callApi = ({
   headers[ 'Content-Type' ] = 'application/json; charset=UTF-8';
   headers.Accept = 'application/json';
 
-  // DEBUG
-  // console.log( "headers", JSON.stringify( headers ));
-
   fetch(
     url,
     {
@@ -72,8 +69,6 @@ export const callApi = ({
 // --------------------------------------
 const ipifyUrl = 'https://api.ipify.org?format=json';
 export const getPublicIp = async () => {
-
-  // SIMPLEST
   return new Promise( resolve => {
     const response = fetch( ipifyUrl )
       .then( response => response.json())
@@ -83,21 +78,6 @@ export const getPublicIp = async () => {
       })
       .catch( err => console.error( err ));
   });
-
-  // THERE BE DRAGONS HERE, never got to properly unwind the promises here...
-  // READ UP:
-  // https://stackoverflow.com/questions/44735669/how-to-make-javascript-fetch-synchronous
-  //
-  // OR USE callApi
-  // return new Promise(resolve => {
-  //   const gotExternalIp = result => { resolve( result.ip ); };
-  //   callApi({
-  //     method: 'GET',
-  //     url: ipifyUrl,
-  //     success: gotExternalIp,
-  //   });
-  // });
-
 }
 
 // -------------------------------------------------
