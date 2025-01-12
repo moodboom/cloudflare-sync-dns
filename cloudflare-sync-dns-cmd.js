@@ -149,13 +149,9 @@ const updateDns = async ({ headers, currentExternalIp, dnsRecord }) => {
       }
       resolve( data.success );
     };
-    const body = JSON.stringify({
-      "comment": "Domain verification record",
-      'type': 'A',
-      'name': dnsRecord.name,
+    const contents = JSON.stringify({
+      'comment': `${timestampShortNow()} IP updated to ${currentExternalIp} by cloudflare-sync-dns npm command`,
       'content': currentExternalIp,
-      'ttl': 1, // cloudflare says use 1 for "automatic"
-      "proxied": dnsRecord.proxied,
     });
 
     const dnsPatchUrl = `${baseUrl}/${dnsRecord.zoneId}/dns_records/${dnsRecord.id}`;
@@ -163,7 +159,7 @@ const updateDns = async ({ headers, currentExternalIp, dnsRecord }) => {
       headers,
       method: 'PATCH',
       url: dnsPatchUrl,
-      body,
+      contents,
       successResponse: patchedDnsRecord,
     });
   });
