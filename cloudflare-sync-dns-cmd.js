@@ -158,7 +158,7 @@ const updateDns = async ({ headers, currentExternalIp, dnsRecord }) => {
       "proxied": dnsRecord.proxied,
     });
 
-    const dnsPatchUrl = `${baseUrl}/dns_records/${dnsRecord.zoneId}/dns_records/${dnsRecord.id}`;
+    const dnsPatchUrl = `${baseUrl}/${dnsRecord.zoneId}/dns_records/${dnsRecord.id}`;
     callApi({
       headers,
       method: 'PATCH',
