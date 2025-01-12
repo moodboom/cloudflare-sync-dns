@@ -143,7 +143,11 @@ const updateDns = async ({ headers, currentExternalIp, dnsRecord }) => {
     const baseUrl = 'https://api.cloudflare.com/client/v4/zones';
 
     const patchedDnsRecord = data => {
-      resolve( true );
+      if ( !data.success ) {
+        console.log( 'DNS record update failed:' );
+        console.log( JSON.stringify( data, null, 2 ) );
+      }
+      resolve( data.success );
     };
     const body = JSON.stringify({
       "comment": "Domain verification record",

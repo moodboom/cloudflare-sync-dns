@@ -35,9 +35,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  354d8bd  11 days ago Bump eslint                                           HEAD -> mai.. Michael Behrns-Miller [cob..
-  c03005a  11 days ago Parameter fix                                           tag: 5.0.16 Michael Behrns-Miller [cob..
-  dae0993  11 days ago Dereference fix                                         tag: 5.0.15 Michael Behrns-Miller [cob..
-  7ddb9ab  3 weeks ago Clean exit                                              tag: 5.0.14 Michael Behrns-Miller [cob..
+  4226fcb  2 weeks ago Remove comments                                       HEAD -> mai.. Michael Behrns-Miller [cast]
+  354d8bd  4 weeks ago Bump eslint                                             tag: 5.0.17 Michael Behrns-Miller [cob..
+  c03005a  4 weeks ago Parameter fix                                           tag: 5.0.16 Michael Behrns-Miller [cob..
+  dae0993  4 weeks ago Dereference fix                                         tag: 5.0.15 Michael Behrns-Miller [cob..
 
-Version 5.0.18
+Version 5.0.19
