@@ -149,10 +149,10 @@ const updateDns = async ({ headers, currentExternalIp, dnsRecord }) => {
       }
       resolve( data.success );
     };
-    const contents = JSON.stringify({
+    const contents = {
       'comment': `${timestampShortNow()} IP updated to ${currentExternalIp} by cloudflare-sync-dns npm command`,
       'content': currentExternalIp,
-    });
+    };
 
     const dnsPatchUrl = `${baseUrl}/${dnsRecord.zoneId}/dns_records/${dnsRecord.id}`;
     callApi({
