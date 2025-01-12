@@ -252,6 +252,9 @@ const syncDnsChainParent = async () => {
       for ( const dnsRecord of dnsRecords ) {
 
         const bOk = await updateDns({ headers, currentExternalIp, dnsRecord });
+        if ( !bOk ) {
+          throw new Error( `Failed to update ${ dnsRecord.name } to IP ${currentExternalIp}` );
+        }
         chainLog.push( `${timestampShortNow()} Updated ${ dnsRecord.name } to IP ${currentExternalIp}` );
 
         bUpdateOk = bUpdateOk && bOk;
