@@ -35,9 +35,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  ea10ca3 4 minutes .. Fatal PATCH body bug FIXED tested and working         HEAD -> mai.. Michael Behrns-Miller [cast]
-  8d9060a 41 minutes.. Fatal bad-url bug FIXED                                  tag: 5.1.0 Michael Behrns-Miller [cast]
-  62b306a 48 minutes.. Catch API call errors and terminate                     tag: 5.0.20 Michael Behrns-Miller [cast]
-  62e1933 52 minutes.. Catch API call errors                                   tag: 5.0.19 Michael Behrns-Miller [cast]
+  c77ca0a   2 days ago Another patch body bug fix                            HEAD -> mai.. Michael Behrns-Miller [cast]
+  ea10ca3   2 days ago Fatal PATCH body bug FIXED tested and working            tag: 6.0.0 Michael Behrns-Miller [cast]
+  8d9060a   2 days ago Fatal bad-url bug FIXED                                  tag: 5.1.0 Michael Behrns-Miller [cast]
+  62b306a   2 days ago Catch API call errors and terminate                     tag: 5.0.20 Michael Behrns-Miller [cast]
 
-Version 6.1.0
+Version 6.1.1

@@ -101,6 +101,16 @@ const loadCloudflareSettings = async () => {
   });
 }
 
+const updateFirewall = async restartFirewallScript => {
+  return new Promise(( resolve, reject ) => {
+
+    // reset firewall with new IP
+    const bFWOK = run_command_sync_to_console( restartFirewallScript );
+
+    resolve( bFWOK );
+  });
+}
+
 // GET DNS RECORDS
 // We GET DNS records first, so we can later use the dns_record_ids to update IP.
 const getDnsRecords = async ({ headers, domain, zoneId }) => {
@@ -165,13 +175,10 @@ const updateDns = async ({ headers, currentExternalIp, dnsRecord }) => {
   });
 }
 
-const resetLan = async ( restartFirewallScript, pingChecks ) => {
+const checkLan = async pingChecks => {
   return new Promise(( resolve, reject ) => {
 
-    // 1 reset firewall with new IP
-    run_command_sync_to_console( restartFirewallScript );
-
-    // 2 verify we can ping both externally and internally
+    // verify we can ping both externally and internally
     const bLanOk = ping_google() && pingChecks.every( p => ping( p ));
 
     resolve( bLanOk );
@@ -234,6 +241,14 @@ const syncDnsChainParent = async () => {
         // 'Authorization': `Bearer ${cloudflareAPIToken}`,
       };  
 
+      if ( restartFirewallScript ) {
+        const bFirewallOk = await updateFirewall( restartFirewallScript );
+        if ( !bFirewallOk ) {
+          throw new Error( `Failed to restart firewall` );
+        }
+        chainLog.push( `${timestampShortNow()} Restarted firewall` );
+      }
+
       // NOTE LOOPS with await cannot use forEach.
       // Simply use a normal for.
       let dnsRecords = [];
@@ -257,7 +272,7 @@ const syncDnsChainParent = async () => {
       };
       chainLog.push( `${timestampShortNow()} Update all DNS records: ${bUpdateOk}` );
 
-      const bLanOk = await resetLan( restartFirewallScript, pingChecks );
+      const bLanOk = await checkLan( pingChecks );
       chainLog.push( `${timestampShortNow()} Reset LAN: ${bLanOk}` );
 
       if ( bLanOk ) {
