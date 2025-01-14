@@ -22,6 +22,14 @@ Specifically, the script will:
 * Specify the settings file when you run, eg: cloudflare-sync-dns /path/to/my/settings.json
 * Add a cron job to run the script regularly.  Every minute should work well, as most of the time it just does a local check.
 
+NOTE that you can use this nvm-based bash script to run npm commands from cron:
+```
+#!/bin/bash
+export NVM_DIR="/home/myhome/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+cloudflare-sync-dns /path/to/settings.json
+```
+
 [Documentation](https://bitpost.com/wiki/Cloudflare-sync-dns) | [News](https://bitpost.com/news)
 
 Note there is also a command console for a few admin commands.
@@ -35,9 +43,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  07607e7 10 minutes.. Comment on running node in cron                       HEAD -> mai.. Michael Behrns-Miller [cast]
-  40947b7 18 minutes.. Allow for reset of firewall before accessing internet    tag: 6.1.1 Michael Behrns-Miller [cast]
+  9efe6b8 5 minutes .. Comment on running node command from cron             HEAD -> mai.. Michael Behrns-Miller [cast]
+  07607e7 15 minutes.. Comment on running node in cron                          tag: 6.1.2 Michael Behrns-Miller [cast]
+  40947b7 23 minutes.. Allow for reset of firewall before accessing internet    tag: 6.1.1 Michael Behrns-Miller [cast]
   c77ca0a   2 days ago Another patch body bug fix                               tag: 6.1.0 Michael Behrns-Miller [cast]
-  ea10ca3   2 days ago Fatal PATCH body bug FIXED tested and working            tag: 6.0.0 Michael Behrns-Miller [cast]
 
-Version 6.1.3
+Version 6.1.4

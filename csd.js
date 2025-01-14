@@ -107,6 +107,14 @@ Specifically, the script will:
 * Specify the settings file when you run, eg: cloudflare-sync-dns /path/to/my/settings.json
 * Add a cron job to run the script regularly.  Every minute should work well, as most of the time it just does a local check.
 
+NOTE that you can use this nvm-based bash script to run npm commands from cron:
+\`\`\`
+#!/bin/bash
+export NVM_DIR="/home/myhome/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+cloudflare-sync-dns /path/to/settings.json
+\`\`\`
+
 [Documentation](https://bitpost.com/wiki/Cloudflare-sync-dns) | [News](https://bitpost.com/news)
 
 Note there is also a command console for a few admin commands.
