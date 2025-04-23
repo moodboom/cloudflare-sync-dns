@@ -43,9 +43,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  9efe6b8 5 minutes .. Comment on running node command from cron             HEAD -> mai.. Michael Behrns-Miller [cast]
-  07607e7 15 minutes.. Comment on running node in cron                          tag: 6.1.2 Michael Behrns-Miller [cast]
-  40947b7 23 minutes.. Allow for reset of firewall before accessing internet    tag: 6.1.1 Michael Behrns-Miller [cast]
-  c77ca0a   2 days ago Another patch body bug fix                               tag: 6.1.0 Michael Behrns-Miller [cast]
+  f3eef17 3 months ago Really Comment on running node command from cron      HEAD -> mai.. Michael Behrns-Miller [cast]
+  9efe6b8 3 months ago Comment on running node command from cron                tag: 6.1.3 Michael Behrns-Miller [cast]
+  07607e7 3 months ago Comment on running node in cron                          tag: 6.1.2 Michael Behrns-Miller [cast]
+  40947b7 3 months ago Allow for reset of firewall before accessing internet    tag: 6.1.1 Michael Behrns-Miller [cast]
 
-Version 6.1.4
+Version 6.1.5

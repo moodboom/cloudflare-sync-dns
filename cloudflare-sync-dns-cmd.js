@@ -103,11 +103,8 @@ const loadCloudflareSettings = async () => {
 
 const updateFirewall = async restartFirewallScript => {
   return new Promise(( resolve, reject ) => {
-
-    // reset firewall with new IP
-    const bFWOK = run_command_sync_to_console( restartFirewallScript );
-
-    resolve( bFWOK );
+    run_command_sync_to_console( restartFirewallScript );
+    resolve( true );
   });
 }
 
@@ -242,10 +239,7 @@ const syncDnsChainParent = async () => {
       };  
 
       if ( restartFirewallScript ) {
-        const bFirewallOk = await updateFirewall( restartFirewallScript );
-        if ( !bFirewallOk ) {
-          throw new Error( `Failed to restart firewall` );
-        }
+        await updateFirewall( restartFirewallScript );
         chainLog.push( `${timestampShortNow()} Restarted firewall` );
       }
 
