@@ -43,9 +43,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  f3eef17 3 months ago Really Comment on running node command from cron      HEAD -> mai.. Michael Behrns-Miller [cast]
-  9efe6b8 3 months ago Comment on running node command from cron                tag: 6.1.3 Michael Behrns-Miller [cast]
-  07607e7 3 months ago Comment on running node in cron                          tag: 6.1.2 Michael Behrns-Miller [cast]
-  40947b7 3 months ago Allow for reset of firewall before accessing internet    tag: 6.1.1 Michael Behrns-Miller [cast]
+  02756ac 4 months ago Firewall script remove exit code check                HEAD -> mai.. Michael Behrns-Miller [cast]
+  f3eef17 7 months ago Really Comment on running node command from cron         tag: 6.1.4 Michael Behrns-Miller [cast]
+  9efe6b8 7 months ago Comment on running node command from cron                tag: 6.1.3 Michael Behrns-Miller [cast]
+  07607e7 7 months ago Comment on running node in cron                          tag: 6.1.2 Michael Behrns-Miller [cast]
 
-Version 6.1.5
+Version 6.1.6
