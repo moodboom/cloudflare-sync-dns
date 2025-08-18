@@ -124,6 +124,7 @@ Usage: csd [command]
   cmd+options           short description
   ---------------------------------------
   sync                  [sy]  (admin-only) sync this module, ie: pull, commit, tag, push, publish to npm
+  public-ip             [ip]  display the current public IP address
 `;
 
 
@@ -133,6 +134,12 @@ export const csd = ( target, args ) => {
     const run_cmd = `git pull && npm install && npm link`;
     run_command_sync_to_console( run_cmd );
 
+  } else if ( target == 'public-ip' || target == 'ip' ) {
+    // const currentExternalIp = await getPublicIp();
+    // console.log( `Current public IP: ${currentExternalIp}` );
+    getPublicIp().then( ip => {
+      console.log( `Current public IP: ${ip}` );
+    });
   } else if ( target == 'sync' || target == 'sy' ) {
 
     if ( !folder_exists( '../cloudflare-sync-dns' )) {
