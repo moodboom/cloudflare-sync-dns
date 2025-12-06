@@ -44,9 +44,9 @@ Usage: csd [command]
 
 
 Most recent commits...
-  732bab1   8 days ago Upgrade npm to 22.18 and modules                      HEAD -> mai.. Michael Behrns-Miller [cast]
-  02756ac 4 months ago Firewall script remove exit code check                   tag: 6.1.5 Michael Behrns-Miller [cast]
-  f3eef17 7 months ago Really Comment on running node command from cron         tag: 6.1.4 Michael Behrns-Miller [cast]
-  9efe6b8 7 months ago Comment on running node command from cron                tag: 6.1.3 Michael Behrns-Miller [cast]
+  9a8efb5 4 months ago Provide command line public ip extraction             HEAD -> mai.. Michael Behrns-Miller [cast]
+  732bab1 4 months ago Upgrade npm to 22.18 and modules                         tag: 6.1.6 Michael Behrns-Miller [cast]
+  02756ac 8 months ago Firewall script remove exit code check                   tag: 6.1.5 Michael Behrns-Miller [cast]
+  f3eef17 11 months .. Really Comment on running node command from cron         tag: 6.1.4 Michael Behrns-Miller [cast]
 
-Version 6.1.7
+Version 6.1.8
